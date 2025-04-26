@@ -7,6 +7,9 @@ yarn-error.log
 # Build output
 dist/
 
+#Test report and coverage
+coverage/
+
 # IDE and editor files
 .idea/
 .vscode/

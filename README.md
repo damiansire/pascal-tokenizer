@@ -4,6 +4,8 @@ A simple and efficient tokenizer for the Pascal programming language, written in
 
 ## Installation
 
+Install the package using npm:
+
 ```bash
 npm install pascal-tokenizer
 ```
@@ -12,23 +14,33 @@ npm install pascal-tokenizer
 
 ### Basic Usage
 
+You can import the tokenizePascal function and optionally the PascalToken and TokenType types
+
 _Input example:_
 
 ```typescript
-import { tokenizePascal } from "pascal-tokenizer";
+import { tokenizePascal, PascalToken, TokenType } from "pascal-tokenizer";
 
 const pascalCode = `
 program HelloWorld;
 begin
-  writeln('Hello, World!');
+  writeln('Hello, World!'); // Example comment
 end.
 `;
 
-const tokens = tokenizePascal(pascalCode);
+// Tokenize the code (comments skipped by default)
+const tokens: PascalToken[] = tokenizePascal(pascalCode);
 console.log(tokens);
+
+// Example: Find the first keyword token
+const firstKeyword = tokens.find((token) => token.type === "KEYWORD"); // You can use the imported TokenType for type checking
+
+// Tokenize including comments
+const tokensWithComments = tokenizePascal(pascalCode, false);
+console.log(tokensWithComments);
 ```
 
-_Output_
+_Default output:_
 
 ```typescript
 [
@@ -38,9 +50,29 @@ _Output_
   { type: "KEYWORD", value: "begin" },
   { type: "IDENTIFIER", value: "writeln" },
   { type: "DELIMITER_LPAREN", value: "(" },
-  { type: "STRING_LITERAL", value: "Hello, World!" }, // Nota: sin las comillas simples
+  { type: "STRING_LITERAL", value: "Hello, World!" },
   { type: "DELIMITER_RPAREN", value: ")" },
   { type: "DELIMITER_SEMICOLON", value: ";" },
+  { type: "KEYWORD", value: "end" },
+  { type: "DELIMITER_DOT", value: "." },
+  { type: "EOF", value: "" },
+];
+```
+
+_Output with comments:_
+
+```typescript
+[
+  { type: "KEYWORD", value: "program" },
+  { type: "IDENTIFIER", value: "HelloWorld" },
+  { type: "DELIMITER_SEMICOLON", value: ";" },
+  { type: "KEYWORD", value: "begin" },
+  { type: "IDENTIFIER", value: "writeln" },
+  { type: "DELIMITER_LPAREN", value: "(" },
+  { type: "STRING_LITERAL", value: "Hello, World!" },
+  { type: "DELIMITER_RPAREN", value: ")" },
+  { type: "DELIMITER_SEMICOLON", value: ";" },
+  { type: "COMMENT_LINE", value: "// Example comment" },
   { type: "KEYWORD", value: "end" },
   { type: "DELIMITER_DOT", value: "." },
   { type: "EOF", value: "" },
@@ -145,7 +177,7 @@ The tokenizer recognizes the following token types:
 
 _(Note: `true` and `false` are specifically handled as `BOOLEAN_LITERAL` in your code, even though they might be in an initial keyword list)._
 
-## Considerations regarding to the output
+## Considerations
 
 Please note that if you have writeln('Hello, World!'), the resulting token will be { type: "STRING_LITERAL", value: "Hello, World!" }. The single quotes (') will not be included directly in the value. This is intentional, so that you can render it on the screen as desired later on.
 

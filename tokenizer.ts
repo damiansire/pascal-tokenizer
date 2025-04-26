@@ -169,7 +169,7 @@ export function tokenizePascal(code: string, skipComments: boolean = true) {
       }
       // currentIndex is now at \n or end of code
       if (!skipComments) {
-        const comment = code.substring(initialIndex, currentIndex - 1);
+        const comment = code.substring(initialIndex, currentIndex);
         tokens.push({
           type: "COMMENT_LINE",
           value: comment,

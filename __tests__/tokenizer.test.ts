@@ -1,5 +1,5 @@
 // tokenizer.test.ts
-import { tokenizePascal, PascalToken, TokenType } from "../index"; // Asegúrate que la ruta sea correcta
+import { tokenizePascal, PascalToken } from "../index"; // Asegúrate que la ruta sea correcta
 
 describe("tokenizePascal", () => {
   // Test básico con palabras clave e identificadores
@@ -31,12 +31,14 @@ describe("tokenizePascal", () => {
     expect(numberTokens).toEqual(expectedNumberTokens);
   });
 
-  // Test con strings
+  /*
+  Please note that if you have writeln('Hello, World!'), the resulting token will be { type: "STRING_LITERAL", value: "Hello, World!" }. The single quotes (') will not be included directly in the value. This is intentional, so that you can render it on the screen as desired later on.
+  */
   it("should tokenize string literals", () => {
     const code = "writeln('Hello, World!');";
     const tokens = tokenizePascal(code);
     const stringToken = tokens.find((t) => t.type === "STRING_LITERAL");
-    expect(stringToken).toEqual({ type: "STRING_LITERAL", value: "'Hello, World!'" }); // Incluye las comillas
+    expect(stringToken).toEqual({ type: "STRING_LITERAL", value: "Hello, World!" });
   });
 
   // Test con booleanos
@@ -104,5 +106,35 @@ describe("tokenizePascal", () => {
   it("should return only EOF for whitespace-only input", () => {
     const code = "   \n\t  \r\n ";
     expect(tokenizePascal(code)).toEqual([{ type: "EOF", value: "" }]);
+  });
+
+  it("To complex code", () => {
+    const code = `
+      program MiPrimerPrograma;
+
+      begin
+        writeln('Hola, mundo!'); // Muestra un mensaje en pantalla
+      end. (* El punto final es crucial! *)`;
+
+    const tokens = tokenizePascal(code, false); // skipComments = false
+
+    const expected = [
+      { type: "KEYWORD", value: "program" },
+      { type: "IDENTIFIER", value: "MiPrimerPrograma" },
+      { type: "DELIMITER_SEMICOLON", value: ";" },
+      { type: "KEYWORD", value: "begin" },
+      { type: "IDENTIFIER", value: "writeln" },
+      { type: "DELIMITER_LPAREN", value: "(" },
+      { type: "STRING_LITERAL", value: "Hola, mundo!" },
+      { type: "DELIMITER_RPAREN", value: ")" },
+      { type: "DELIMITER_SEMICOLON", value: ";" },
+      { type: "COMMENT_LINE", value: "// Muestra un mensaje en pantalla" },
+      { type: "KEYWORD", value: "end" },
+      { type: "DELIMITER_DOT", value: "." },
+      { type: "COMMENT_STAR", value: "(* El punto final es crucial! *)" },
+      { type: "EOF", value: "" },
+    ];
+
+    expect(tokens).toEqual(expected);
   });
 });

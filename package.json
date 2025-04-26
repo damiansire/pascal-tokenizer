@@ -1,6 +1,6 @@
 {
   "name": "pascal-tokenizer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A tokenizer for Pascal programming language",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,6 +10,14 @@
     "test:watch": "jest --watch --coverage",
     "prepublishOnly": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damiansire/pascal-tokenizer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/damiansire/pascal-tokenizer/issues"
+  },
+  "homepage": "https://github.com/damiansire/pascal-tokenizer#readme",
   "keywords": [
     "pascal",
     "tokenizer",
@@ -17,7 +25,7 @@
     "parser",
     "compiler"
   ],
-  "author": "",
+  "author": "Damian Sire",
   "license": "MIT",
   "devDependencies": {
     "typescript": "^4.9.5"

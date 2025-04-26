@@ -141,6 +141,7 @@ The tokenizer recognizes the following token types:
 | `KEYWORD`                | (See list below)                     | Language reserved word                     |
 | `IDENTIFIER`             | `myVariable`, `Counter`, `TMyObject` | User-defined name                          |
 | `EOF`                    |                                      | End Of File marker (internal)              |
+| `WHITESPACE`             | Can be used for external consumption | Unused.                                    |
 
 **Keywords (`KEYWORD`) Currently Recognized (according to `tokenizer.ts`):**
 

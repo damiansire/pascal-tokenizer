@@ -1,5 +1,5 @@
 // tokenizer.test.ts
-import { tokenizePascal, PascalToken } from "../index"; // Asegúrate que la ruta sea correcta
+import { tokenizePascal, PascalToken } from "../src/index"; // Asegúrate que la ruta sea correcta
 
 describe("tokenizePascal", () => {
   // Test básico con palabras clave e identificadores

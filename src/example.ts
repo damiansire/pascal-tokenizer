@@ -1,6 +1,6 @@
 // Example usage of the pascal-tokenizer package
 
-import { tokenizePascal } from './index';
+import { tokenizePascal } from "./index";
 
 // Sample Pascal code
 const pascalCode = `
@@ -23,10 +23,10 @@ end.
 `;
 
 // Tokenize the code
-console.log('Tokenizing with comments skipped (default):');
+console.log("Tokenizing with comments skipped (default):");
 const tokensWithoutComments = tokenizePascal(pascalCode);
 console.log(JSON.stringify(tokensWithoutComments, null, 2));
 
-console.log('\nTokenizing with comments included:');
+console.log("\nTokenizing with comments included:");
 const tokensWithComments = tokenizePascal(pascalCode, false);
 console.log(JSON.stringify(tokensWithComments, null, 2));

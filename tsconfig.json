@@ -4,11 +4,12 @@
     "module": "commonjs",
     "declaration": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["*.ts"],
+  "include": ["*.ts", "src/tokenizer.ts", "src/index.ts", "src/example.ts"],
   "exclude": ["node_modules", "dist"]
 }

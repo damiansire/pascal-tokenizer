@@ -1,8 +1,4 @@
 // Main entry point for the pascal-tokenizer package
-export { tokenizePascal } from './tokenizer';
+import { tokenizePascal, TokenType, PascalToken } from "./tokenizer";
 
-// Export types for better TypeScript integration
-export interface PascalToken {
-  type: string;
-  value: any;
-}
+export { tokenizePascal, TokenType, PascalToken };
